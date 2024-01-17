@@ -1,14 +1,28 @@
 import { Schema, model, Document } from "mongoose"
 
 interface IUser extends Document {
-    name: string;
+    first_name: string;
+    last_name:string;
+    full_name:string;
     email: string;
     password: string;
     date: Date;
 }
 
 const UserSchema: Schema = new Schema({
-    name: {
+    first_name: {
+        type: String,
+        required: true,
+        min: 3,
+        max: 255
+    },
+    last_name: {
+        type: String,
+        required: true,
+        min: 3,
+        max: 255
+    },
+    full_name: {
         type: String,
         required: true,
         min: 3,
