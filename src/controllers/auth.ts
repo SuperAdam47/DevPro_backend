@@ -4,19 +4,22 @@ import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 
 type RequestBody = {
-    name: string;
+    first_name: string;
+    last_name: string;
     email: string;
     password: string
 }
 export const registerUser = async (req: Request, res: Response) => {
-    const { name, email, password }: RequestBody = req.body;
+    const { first_name,last_name, email, password }: RequestBody = req.body;
 
     // hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     // store the user in db
     const user = new User({
-        name: name,
+        first_name: first_name,
+        last_name: last_name,
+        full_name:first_name+" "+last_name,
         email: email,
         password: hashedPassword
     });
@@ -37,3 +40,4 @@ export const loginUser = async (req: Request, res: Response) => {
       token
     });
 }
+
