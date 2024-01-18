@@ -19,18 +19,21 @@ export const getUser = async (req: Request, res: Response) => {
 
 export const updateUser = async (req: Request, res: Response) => {
     const user = req.user as { id: string };
-    const { email, name } = req.body; 
+    const { email, name,skills,languages,title,about,website_url,location, } = req.body; 
   
     
-    if (!email && !name) {
-      return res.status(400).json({ message: "At least one field (email or name) is required for update." });
-    }
   
     try {
     
       const updatedFields: { [key: string]: any } = {};
       if (email) updatedFields.email = email;
       if (name) updatedFields.name = name;
+      if (skills) updatedFields.skills = skills;
+      if (languages) updatedFields.languages = languages;
+      if (title) updatedFields.title = title;
+      if (about) updatedFields.about = about;
+      if (website_url) updatedFields.website_url = website_url;
+      if (location) updatedFields.location = location;
   
       
       const updatedUser = await User.findByIdAndUpdate(

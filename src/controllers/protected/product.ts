@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import path from "path";
-import fs from "fs";
 import Product from "../../models/Product";
 
 export const addProduct =  async (req: Request, res: Response) => {
@@ -61,6 +59,12 @@ export const getAllProducts = async (req: Request, res: Response) => {
         const products = await Product.find(finalQuery).populate({
         path: "user",
         select: "full_name email", 
+      }).populate({
+        path: 'reviews',
+        populate: {
+          path: 'user',
+          select: 'full_name email',
+        },
       }); 
   
       if (!products || products.length === 0) {
