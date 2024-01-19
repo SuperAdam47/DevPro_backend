@@ -6,12 +6,14 @@ import protectedRoutes from './routes/protected'
 import { connectDB } from './db/connect'
 import { notFound } from './middleware/not-found'
 import { errorHandlerMiddleware } from './middleware/error-handler'
+import cors from 'cors'
 
 dotenv.config()
 const app = express()
 const port = process.env.PORT || 3000;
 
 // middleware
+app.use(cors())
 app.use(express.json())
 
 // Routes
