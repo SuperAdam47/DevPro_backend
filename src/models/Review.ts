@@ -5,6 +5,8 @@ export interface ReviewModel extends Document {
   product: mongoose.Types.ObjectId;
   rating: number;
   comment: string;
+  date: Date;
+
 }
 
 const reviewSchema = new Schema<ReviewModel>({
@@ -12,6 +14,10 @@ const reviewSchema = new Schema<ReviewModel>({
   product: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
   rating: { type: Number, required: true },
   comment: { type: String },
+  date: {
+    type: Date,
+    default: Date.now()
+}
 });
 
 const Review = mongoose.model<ReviewModel>("Review", reviewSchema);
